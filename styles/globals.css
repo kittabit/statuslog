@@ -45,3 +45,11 @@
 
 @media (min-width: 1536px) {
 }
+
+.primary-font {
+  font-family: 'Belanosima', sans-serif;
+}
+
+.code-font {
+  font-family: 'Source Code Pro', monospace;
+}

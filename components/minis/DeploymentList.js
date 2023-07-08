@@ -43,14 +43,14 @@ export default function DeploymentList(props) {
       <div className="">
         {loading && (
           <div className="text-center">
-            <div className="text-2xl font-semibold mb-4">Loading...</div>
+            <div className="text-2xl primary-font mb-4">Loading...</div>
           </div>
         )}
 
         {!loading && deploymentData.length > 0 && (
           <>
             {deploymentData.map((event, index) => (
-              <div className="" key={index}>
+              <div className="code-font" key={index}>
                 <span className="text-blue-400 pr-2 text-sm inline-block">
                   {formatUnixTimestamp(event.payload.date)}
                 </span>

@@ -46,10 +46,10 @@ export default function Project({ data }) {
 
   return (
     <>
-      <div className={`monitor py-8 bg-${projectColor}-400 bg-opacity-20 border-b-2 border-white`}>
+      <div className={`monitor py-8 bg-${projectColor}-400 bg-opacity-20 border-b-2 border-white mb-8`}>
         <div className="container flex items-center justify-between mb-3">
-          <h3 className="text-2xl text-gray-800">{name}</h3>
-          <span className={`text-${projectColor}-600 font-semibold`}>{projectStatus}</span>
+          <h3 className="text-2xl text-gray-800 primary-font">{name}</h3>
+          <span className={`text-${projectColor}-600 primary-font`}>{projectStatus}</span>
         </div>
         <div className="container bars">
           <div className="flex space-x-px">
@@ -73,12 +73,7 @@ export default function Project({ data }) {
         </div>
 
         {deploymentDetails?.uid && (
-          <div className="container mx-auto bg-gray-800 shadow-2xl rounded-lg overflow-hidden mt-6">
-            <div id="header-buttons" className="py-3 px-4 flex">
-              <div className="rounded-full w-3 h-3 bg-red-500 mr-2"></div>
-              <div className="rounded-full w-3 h-3 bg-yellow-500 mr-2"></div>
-              <div className="rounded-full w-3 h-3 bg-green-500"></div>
-            </div>
+          <div className="container mx-auto bg-gray-800 shadow-2xl rounded-lg overflow-hidden mt-6 max-w-[95%]">
             <div id="code-area" className="py-4 px-4 mt-1 text-white text-xl">
               <DeploymentList id={deploymentDetails.uid} />
             </div>

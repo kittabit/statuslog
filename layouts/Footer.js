@@ -1,6 +1,6 @@
 export default function FooterLayout(props) {
-    const currentYear = new Date().getFullYear();
-  
+    const { version } = require('@/package.json');
+
     return (
       <footer className="py-4 text-gray-100 bg-black">
         <div className="container flex justify-between">
@@ -10,13 +10,12 @@ export default function FooterLayout(props) {
             rel="noopener noreferrer"
             className="flex items-center text-xs"
           >
-            &copy; {currentYear} - Built by Kittabit
+            v{ version } - Built by Nicholas Mercer
           </a>
           <div className="text-white text-xs">
-            Powered by
-            <span className="text-gray-100"> Red Bull</span>,{' '}
-            <span className="text-red-300">Love</span>, and a few{' '}
-            <span className="text-pink-300">Meows</span>
+            Powered by{' '} 
+            <span className="text-red-300">love</span> (and a few{' '}
+            <span className="text-pink-300">toebeans</span>)
           </div>
         </div>
       </footer>

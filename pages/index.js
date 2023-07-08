@@ -50,7 +50,7 @@ export default function Home() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
-      <div className="bg-[#efe4c4]/20">
+      <div className="bg-[#FEFEFE]/20">
         <HeaderLayout />
 
         <main>

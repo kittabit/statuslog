@@ -6,20 +6,3 @@ An intuitive and hassle-free solution for teams to monitor the status of their h
 
 1.  Copy ".env.sample" and provide the following two variables: `NEXT_PUBLIC_VERCEL_TOKEN` & `NEXT_PUBLIC_VERCEL_TEAM_ID`
 2.  Run `npm run dev` to test / update.
-
-## Colors
-
-### Primary
-efe4c4
-
-### Secondary
-bcb292
-
-### Tertiary:
-a79d7c
-
-### Quaternary:
-938867
-
-### Quinary
-7f7352
