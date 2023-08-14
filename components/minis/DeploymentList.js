@@ -43,7 +43,7 @@ export default function DeploymentList(props) {
       <div className="">
         {loading && (
           <div className="text-center">
-            <div className="text-2xl primary-font mb-4">Loading...</div>
+            <div className="text-2xl primary-font mb-4 mt-2">Loading...</div>
           </div>
         )}
 
@@ -51,10 +51,10 @@ export default function DeploymentList(props) {
           <>
             {deploymentData.map((event, index) => (
               <div className="code-font" key={index}>
-                <span className="text-blue-400 pr-2 text-sm inline-block">
+                <span className="text-blue-400 pr-2 text-xs inline-block">
                   {formatUnixTimestamp(event.payload.date)}
                 </span>
-                <span className="text-yellow-300 text-sm inline-block">
+                <span className="text-yellow-300 text-xs inline-block">
                   {event.payload.text}
                 </span>
               </div>

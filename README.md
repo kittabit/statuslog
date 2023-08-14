@@ -6,3 +6,6 @@ An intuitive and hassle-free solution for teams to monitor the status of their h
 
 1.  Copy ".env.sample" and provide the following three variables: `NEXT_PUBLIC_VERCEL_TOKEN,` `NEXT_PUBLIC_VERCEL_TEAM_ID,` and `NEXT_PUBLIC_LIGHTHOUSE_API_KEY`
 2.  Run `npm run dev` to test / update.
+
+## Note(s) (for organization)
+- `PRODUCTION_DOMAIN` ENV Variable (for Core Vitals)

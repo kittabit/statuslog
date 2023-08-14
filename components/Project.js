@@ -10,7 +10,9 @@ export default function Project({ data }) {
   const [projectPercentile, setProjectPercentile] = useState(0);
   const [projectColor, setProjectColor] = useState('green');
   const [deploymentDetails, setDeploymentDetails] = useState([]);
-  const [projectDomain, setProjectDomain] = useState('');
+  const [showcaseWebVitals, setShowcaseWebVitals] = useState(false);
+  const [envDetails, setEnvDetails] = useState([]);
+  const [productionDomain, setProductionDomain] = useState('');
 
   const handleProjectPercentile = (percentage) => {
     setProjectPercentile(percentage);
@@ -47,10 +49,35 @@ export default function Project({ data }) {
   }, [projectStatus]);
 
   useEffect(() => {
-    if (data.targets?.production?.automaticAliases?.['0']) {
-      setProjectDomain("https://" + data.targets.production.automaticAliases['0']);
+    if (data.env) {
+      setEnvDetails(data.env);
     }
-  }, [data.targets]);
+  
+    const productionDomainRow = envDetails.find(row => row.key === 'PRODUCTION_DOMAIN');
+    if (productionDomainRow) {
+      console.log('Production Domain:', productionDomainRow.id);
+      
+      var connectionUrl = `https://api.vercel.com/v1/projects/${data.id}/env/${productionDomainRow.id}?teamId=${process.env.NEXT_PUBLIC_VERCEL_TEAM_ID}`;
+  
+      fetch(connectionUrl, {
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_VERCEL_TOKEN}`
+        }
+      })
+      .then(response => response.json())
+      .then(jsonData => {
+        const productionDomainValue = jsonData.value;
+        setProductionDomain(productionDomainValue);
+      })
+      .catch(error => {
+        console.error('Error fetching production domain:', error);
+      });
+    }
+  }, [data.env, data.id, envDetails]);
+
+  const toggleShowcaseWebVitals = () => {
+    setShowcaseWebVitals(prevState => !prevState);
+  };
 
   return (
     <>
@@ -58,11 +85,17 @@ export default function Project({ data }) {
         <div className="container flex items-center justify-between mb-3">
           <h3 className="text-2xl text-gray-800 primary-font">
             {name}
-            { projectDomain &&
-              <a href={ projectDomain } className="inline-block ml-2" target="_blank" rel="noreferrer">
-                <svg className="w-6" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><path d="M576 0H96V416H576V0zM512 72v48H256V72H512zM160 64h64v64H160V64zM48 120V96H0v24V488v24H24 456h24V464H456 48V120z"/></svg>
-              </a>
-            }
+            { productionDomain &&
+              <>
+                <button className="inline-block ml-2" title="View Performance Data" onClick={toggleShowcaseWebVitals}>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" className="inline-block w-6 relative -top-[1px] hover:fill-black/60 transition duration-500"><path d="M32 32c17.7 0 32 14.3 32 32V400c0 8.8 7.2 16 16 16H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H80c-44.2 0-80-35.8-80-80V64C0 46.3 14.3 32 32 32zm96 272a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm224-80a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM192 176a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zM384 64a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+                </button>
+            
+                <a href={ productionDomain } title="Open Website to Preview" className="inline-block ml-2 relative top-[4px]" target="_blank" rel="noreferrer">
+                  <svg className="w-6 hover:fill-black/60 transition duration-500" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><path d="M576 0H96V416H576V0zM512 72v48H256V72H512zM160 64h64v64H160V64zM48 120V96H0v24V488v24H24 456h24V464H456 48V120z"/></svg>
+                </a>
+              </>
+            }            
           </h3>
           <span className={`text-${projectColor}-600 primary-font`}>{projectStatus}</span>
         </div>
@@ -88,16 +121,18 @@ export default function Project({ data }) {
         </div>
 
         {deploymentDetails?.uid && (
-          <div className="container mx-auto bg-gray-800 shadow-2xl rounded-lg overflow-hidden mt-6 max-w-[95%]">
-            <div id="code-area" className="py-4 px-4 mt-1 text-white text-xl">
-              <DeploymentList id={deploymentDetails.uid} />
+          <div className="container mx-auto">
+            <div className="bg-gray-800 shadow-2xl rounded-lg overflow-hidden mt-6 w-full">
+              <div id="code-area" className="py-2 px-6 mt-1 text-white text-base">
+                <DeploymentList id={deploymentDetails.uid} />
+              </div>
             </div>
           </div>
         )}
 
-        { (projectDomain && projectStatus === 'READY') &&
+        { (productionDomain && projectStatus === 'READY' && showcaseWebVitals) &&
           <>
-            <WebVitals domain={ projectDomain } />
+            <WebVitals domain={ productionDomain } />
           </>
         }
       </div>
