@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2023-08-19
+
+### Changed
+
+- Google Core Web Vitals Data 
+- Google Lighthouse Screenshot Preview
+
 ## [1.3.0] - 2023-08-17
 
 ### Changed

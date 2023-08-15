@@ -54,9 +54,7 @@ export default function Project({ data }) {
     }
   
     const productionDomainRow = envDetails.find(row => row.key === 'PRODUCTION_DOMAIN');
-    if (productionDomainRow) {
-      console.log('Production Domain:', productionDomainRow.id);
-      
+    if (productionDomainRow) {      
       var connectionUrl = `https://api.vercel.com/v1/projects/${data.id}/env/${productionDomainRow.id}?teamId=${process.env.NEXT_PUBLIC_VERCEL_TEAM_ID}`;
   
       fetch(connectionUrl, {
@@ -130,7 +128,7 @@ export default function Project({ data }) {
           </div>
         )}
 
-        { (productionDomain && projectStatus === 'READY' && showcaseWebVitals) &&
+        { (productionDomain && showcaseWebVitals) &&
           <>
             <WebVitals domain={ productionDomain } />
           </>
